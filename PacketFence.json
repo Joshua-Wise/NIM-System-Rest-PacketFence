@@ -1,0 +1,109 @@
+{
+    "schema": {
+        "options": {},
+        "crud_objects": {
+			"users": {
+				"operations": {
+					"user_get": {
+						"method": "get",
+						"call": {
+							"path": "/users"
+						},
+                        "processing_options": {
+                            "output_field": "items"
+                        },
+                        "query_parameters": {}
+					}
+				},
+				"parameters": {},
+				"key": "pid",
+				"resources": {
+                    "pid": "string*",
+                    "email": "string*",
+                    "firstname": "string*",
+                    "lastname": "string*",
+                    "source": "string*",
+                    "portal": "string*"
+				}
+			},
+            "certificates": {
+				"operations": {
+					"user_get": {
+						"method": "get",
+						"call": {
+							"path": "/pki/certs"
+						},
+                        "processing_options": {
+                            "output_field": "items"
+                        },
+                        "query_parameters": {}
+					}
+				},
+				"parameters": {},
+				"key": "ID",
+				"resources": {
+                    "ID": "string*",
+                    "cn": "string*",
+                    "dns_names": "string*"
+
+				}
+			}
+        }
+    },
+    "rest": {
+        "config": {
+            "baseUrl": "{pf_url}:{pf_port}/api/v1",
+            "get": {
+                "query_parameters": {},
+                "pagination": {
+                        "mode": "skip_take",
+                        "field": "nextCursor",
+                        "page_size":"{page_size}",
+                        "params":{
+                            "limit":"{take_count}",
+                            "cursor":"{skip_count}"
+                        }
+                    }
+            },
+            "authentication": "custom_post_token",
+            "call_handling": "generic",
+            "test_connection": {
+                "url": "/system_summary"
+            }
+        },
+        "authOptions": {
+            "authUrl": "{pf_url}:{pf_port}/api/v1/login",
+            "postData": {
+                "username": "{user_name}",
+                "password": "{password}"
+            },
+            "directToken": true,
+            "tokenPath": "token",
+            "headerName": "Authorization",
+            "headerTemplate": "Bearer {token}"
+        }
+    },
+    "connection": {
+        "items": [
+            {
+                "name": "pf_url",
+                "type": "textbox",
+                "label": "Packetfence URL:",
+                "value": ""
+            },
+            {
+                "name": "pf_port",
+                "type": "textbox",
+                "label": "Packetfence Port:",
+                "value": ""
+            },
+			{
+                "name": "page_size",
+                "type": "textbox",
+                "label": "Page Size:",
+                "value": "250"
+            }
+        ]
+    },
+    "version":"1.0.jw"
+}
