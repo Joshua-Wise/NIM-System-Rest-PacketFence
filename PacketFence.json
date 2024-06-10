@@ -28,7 +28,7 @@
 			},
             "certificates": {
 				"operations": {
-					"user_get": {
+					"cert_get": {
 						"method": "get",
 						"call": {
 							"path": "/pki/certs"
@@ -37,6 +37,18 @@
                             "output_field": "items"
                         },
                         "query_parameters": {}
+					},
+                    "cert_revoke": {
+						"method": "delete",
+						"call": {
+							"mode": "normal",
+							"path": "/pki/cert/{ID}/4"
+						},
+						"semantics": "delete",
+						"resource_allowance_default": "prohibited",
+						"resource_mandatory": [
+                            "ID"
+                        ]
 					}
 				},
 				"parameters": {},
@@ -45,7 +57,6 @@
                     "ID": "string*",
                     "cn": "string*",
                     "dns_names": "string*"
-
 				}
 			}
         }
@@ -105,5 +116,5 @@
             }
         ]
     },
-    "version":"1.0.jw"
+    "version":"1.1.jw"
 }
